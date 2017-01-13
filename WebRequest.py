@@ -1,4 +1,4 @@
-import urllib.request, urllib.error
+import urllib.request, urllib.error, urllib.parse
 
 
 try:
@@ -9,12 +9,21 @@ try:
         'Accept-Encoding': 'none',
         'Accept-Language': 'en-US,en;q=0.8',
         'Connection': 'keep-alive'}
-    url = input("Provide the URL :")
-    request = urllib.request.Request(url, None, hdr)
+#    url = input("Provide the URL :")
+#   request = urllib.request.Request(url, None, hdr)
 
-    response = urllib.request.urlopen(request)
-    html = response.read()
-    print(html)
+#    response = urllib.request.urlopen(request)
+#   print(response.info())
+
+#    html = response.read()
+#    print(html)
+    urlStr = "https://courtbooking.bayclubs.com/authenticate.lasso?np=e60ee267-f186-46a5-be98-d2af2917a4f5"
+
+    parseValues = urllib.parse.urlparse(urlStr)
+    queryStr = parseValues[4]
+    #print(parseValues)
+    qParsed = urllib.parse.parse_qsl(queryStr)
+    print(qParsed)
 except urllib.error.HTTPError as herror:
     print(herror.msg)
 
